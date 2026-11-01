@@ -1,0 +1,11 @@
+{
+  "name": "garage-logic-advisor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Early assessment project for IT 5433 Logic Programming: a browser garage parts advisor powered by SWI-Prolog.",
+  "scripts": {
+    "sync:prolog": "node scripts/sync-prolog.cjs",
+    "check": "node scripts/check.cjs"
+  },
+  "engines": { "node": ">=22" }
+}

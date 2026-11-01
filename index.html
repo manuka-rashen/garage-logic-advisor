@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Check service parts, view the final result, and replenish garage stock.">
+  <title>Garage Logic Advisor</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="vendor/swipl-bundle.js" defer></script>
+  <script src="assets/js/prolog-source.js" defer></script>
+  <script src="assets/js/app.js" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="masthead">
+      <div class="masthead-top">
+        <div class="brand"><span class="brand-mark" aria-hidden="true">G<span>↗</span></span><div><p class="eyebrow">IT 5433 · LOGIC PROGRAMMING</p><h1>Garage Logic Advisor</h1></div></div>
+        <span id="engine-status" class="engine-pill" role="status">Starting Prolog…</span>
+      </div>
+      <div class="hero-content">
+        <div><p class="hero-heading">The right parts.<br><em>A clear result.</em></p><p class="intro">Select services and see exactly which parts are needed.</p>
+          <div class="hero-steps" aria-hidden="true"><b>1</b> SELECT <span></span> <b>2</b> CHECK <span></span> <b>3</b> REPLENISH</div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <svg viewBox="0 0 280 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="12" y="12" width="256" height="133" rx="21" stroke="currentColor" stroke-opacity=".25"/>
+            <rect x="27" y="27" width="226" height="104" rx="13" fill="#ffffff" fill-opacity=".025"/>
+            <path d="M57 94V83l15-7 16-25h83l24 24 23 8v22H57V94Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <path d="m90 56-13 23h102l-20-23M125 56v23M102 89h11M151 89h11M57 94h12M208 93h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="86" cy="104" r="13" fill="#1b3764" stroke="currentColor" stroke-width="2"/>
+            <circle cx="86" cy="104" r="5" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="190" cy="104" r="13" fill="#1b3764" stroke="currentColor" stroke-width="2"/>
+            <circle cx="190" cy="104" r="5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M45 122h190M42 45h24M54 33v24M223 42h14M230 35v14" stroke="currentColor" stroke-opacity=".5" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </header>
+    <p id="message" class="message" role="status" aria-live="polite" hidden></p>
+    <main id="home">
+        <div class="work-grid">
+          <section class="card job-card">
+            <p class="eyebrow">01 · SELECT</p><h2>Select service jobs</h2>
+            <p class="muted">Select one or more services for this visit.</p>
+            <div id="service-options" class="service-options"></div>
+            <div class="action-row"><button id="check-parts" class="primary" disabled>Check parts <span aria-hidden="true">→</span></button><button id="load-shared" class="text-button" disabled>Try shared parts</button></div>
+          </section>
+          <section id="job-result" class="card result-card" tabindex="-1" aria-live="polite" aria-atomic="true">
+            <div class="section-top"><div><p class="eyebrow">02 · RESULT</p><h2>Job readiness</h2></div><span id="result-badge" class="badge neutral">Awaiting check</span></div>
+            <p id="result-decision" class="result-decision">Ready to check</p>
+            <p id="checked-jobs" class="small muted" hidden></p>
+            <p id="result-summary" class="result-summary">Choose your jobs, then check their parts.</p>
+            <div id="result-stats" class="stats" hidden></div>
+            <div id="job-shortages" class="job-shortages" hidden></div>
+          </section>
+        </div>
+        <section id="requirements-card" class="card" hidden>
+          <div class="section-top"><h2>Parts required for this job</h2><span class="muted small">Checking does not deduct stock.</span></div>
+          <div class="table-scroll"><table><thead><tr><th>Part</th><th>Required</th><th>In stock</th><th>To add</th><th>Result</th></tr></thead><tbody id="requirements-body"></tbody></table></div>
+        </section>
+
+        <section id="stock" class="card" aria-labelledby="stock-title">
+          <div class="section-top"><div><p class="eyebrow">03 · UPDATE</p><h2 id="stock-title">Stock on hand</h2></div><button id="reset-stock" class="text-button" disabled>Reset demo stock</button></div>
+          <p class="muted">Add missing parts. The job result updates automatically. Shelf minimums are separate from job requirements.</p>
+          <form id="stock-form" class="stock-form" novalidate>
+            <div><label for="stock-part">Part to replenish</label><select id="stock-part" disabled></select></div>
+            <div><label for="stock-amount">Quantity to add <span id="stock-unit"></span></label><input id="stock-amount" type="number" min="1" max="1000000" step="1" value="1" disabled></div>
+            <button id="add-stock" class="primary" type="submit" disabled>Add stock</button>
+          </form>
+          <p id="stock-update-note" class="update-note" hidden></p>
+          <div class="table-scroll"><table><thead><tr><th>Part</th><th>Available</th><th>Minimum level</th><th>Shelf status</th></tr></thead><tbody id="inventory-body"><tr><td colspan="4">Starting the knowledge base…</td></tr></tbody></table></div>
+        </section>
+    </main>
+    <footer><span>Offline application · <span id="engine-version">SWI-Prolog</span></span><span id="save-status">Stock is stored in this browser.</span></footer>
+  </div>
+</body>
+</html>
